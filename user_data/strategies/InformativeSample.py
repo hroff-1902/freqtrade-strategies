@@ -93,13 +93,11 @@ class InformativeSample(IStrategy):
                 # Compare stake-currency with USDT - using the defined ticker-interval
                 if (f"{self.stake_currency}/USDT", self.ticker_interval) in self.dp.available_pairs:
                     data = self.dp.ohlcv(pair='ETH/BTC',
-                                         ticker_interval=self.ticker_interval)
+                                         timeframe=self.ticker_interval)
             else:
                 # Get historic ohlcv data (cached on disk).
-                # data = parse_ticker_dataframe(self.dp.historic_ohlcv(pair='ETH/BTC',
-                #                                  ticker_interval=self.ticker_interval), "5m")
                 data = self.dp.historic_ohlcv(pair=f"{self.stake_currency}/USDT",
-                                 ticker_interval=self.ticker_interval)
+                                              timeframe=self.ticker_interval)
             if len(data) == 0:
                 logger.warning(f"No data found for {self.stake_currency}/USDT")
             # Combine the 2 dataframes using close
